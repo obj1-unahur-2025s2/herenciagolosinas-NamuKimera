@@ -3,65 +3,46 @@ import golosinas.*
 object mariano {
 	const golosinas = []
 	 
-	method comprar(_golosina) { golosinas.add(_golosina) }
-	
-	method desechar (_golosina) { golosinas.remove(_golosina) }
-	
-	method golosinas() { return golosinas }
-	method primerGolosina() { return golosinas.first() }
-	method ultimaGolosina() { return golosinas.last() }
-	
-	method pesoGolosinas() { 
-		return golosinas.sum({ golo => golo.peso() })
+	method comprar(golosina) {
+		golosinas.add(golosina)
 	}
+	method desechar(golosina) {
+		golosinas.remove(golosina)
+	}
+	
+	method golosinas() = golosinas
+
+	method primerGolosina() = golosinas.first()
+
+	method ultimaGolosina() = golosinas.last()
+	
+	method pesoGolosinas() = golosinas.sum({golo => golo.peso()})
 	
 	method probarGolosinas() {
-		golosinas.forEach( {_golosina => _golosina.mordisco() } )
+		golosinas.forEach({golo => golo.mordisco() })
 	}
 	
-	method golosinaMasPesada() { 
-		return golosinas.max({ golo => golo.peso() })
-	}
+	method golosinaMasPesada() = golosinas.max({golo => golo.peso()})
 	
-	method hayGolosinaSinTACC() {
-		return golosinas.any({ _golosina => _golosina.libreGluten()}) 
-	}
+	method hayGolosinaSinTACC() = golosinas.any({golosina => golosina.libreGluten()})
 	
-	method preciosCuidados() {
-		return golosinas.all({ _golosina => _golosina.precio() < 10}) 
-	}
+	method preciosCuidados() = golosinas.all({golosina => golosina.precio() < 10})
 	
-	method golosinaDeSabor(_sabor) {
-		return golosinas.find({ golosina => golosina.sabor() == _sabor })
-	}
+	method golosinaDeSabor(sabor) = golosinas.find({golosina => golosina.sabor() == sabor })
 	
-	method golosinasDeSabor(_sabor) {
-		return golosinas.filter({ golosina => golosina.sabor() == _sabor })
-	}
+	method golosinasDeSabor(sabor) = golosinas.filter({golo => golo.sabor() == sabor })
 	
-	method sabores() {
-		return golosinas.map({ golosina => golosina.sabor() }).asSet()
-	}
+	method sabores() = golosinas.map({golo => golo.sabor() }).asSet()
 
 	method bañar(unaGolosina) {
-	  
-	  golosinas.add(unaGolosina)
+		golosinas.add(unaGolosina)
 	}
 
-	method golosinaMasCara() {
-		return golosinas.max( { _golosina => _golosina.precio() } )
-	}
+	method golosinaMasCara() = golosinas.max({ golo => golo.precio()})
 
-	method golosinasFaltantes(golosinasDeseadas) {
-		return golosinasDeseadas.difference(golosinas)	
-	}
+	method golosinasFaltantes(golosinasDeseadas) = golosinasDeseadas.difference(golosinas)
 
-
-	method saboresFaltantes(_saboresDeseados) {
-		return _saboresDeseados.filter({_saborDeseado => ! self.tieneGolosinaDeSabor(_saborDeseado)})	
-	}
+	method saboresFaltantes(saboresDeseados) = saboresDeseados.filter({_saborDeseado => !self.tieneGolosinaDeSabor(_saborDeseado)})
 	
-	method tieneGolosinaDeSabor(_sabor) {
-		return golosinas.any({_golosina => _golosina.sabor() == _sabor})
-	}
+	method tieneGolosinaDeSabor(sabor) = golosinas.any({golo => golo.sabor() == sabor})
 }
